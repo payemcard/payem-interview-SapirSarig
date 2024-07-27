@@ -1,3 +1,15 @@
+# Instructions
+
+To run the backend use npm start.
+To run tests in the backend use npm test.
+
+# Notes
+
+DB - If there was a real db, I would check if the interaction with it succeeded or failed (in db.service.js). If it failed I would log an error.
+Logger - We can use better loggers than the console, such as Datadog etc.
+Input validations - I wrote basic validations, we can write more thorough validations if needed.
+Consts - I added a const for request types. We can create consts for "status" and "currency" as well.
+
 # PayEm Home Assignment
 
 ## Welcome, Candidate!

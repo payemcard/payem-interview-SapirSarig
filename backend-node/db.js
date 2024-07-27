@@ -1,7 +1,10 @@
+import { REQUEST_TYPES } from "./consts/requestTypes.js"
+
 let db = [
     {
         id: 1,
         name: 'Purchase Request 1',
+        type: REQUEST_TYPES.PurchaseRequest,
         description: 'Request to purchase office supplies',
         amount: 100,
         currency: 'USD',
@@ -14,6 +17,7 @@ let db = [
     {
         id: 2,
         name: 'Reimbursement Request 1',
+        type: REQUEST_TYPES.ReimbursementRequest,
         description: 'Reimbursement for travel expenses',
         amount: 150,
         currency: 'EUR',
@@ -26,6 +30,7 @@ let db = [
     {
         id: 3,
         name: 'Purchase Request 2',
+        type: REQUEST_TYPES.PurchaseRequest,
         description: 'Request to purchase new laptops',
         amount: 80,
         currency: 'USD',
@@ -38,6 +43,7 @@ let db = [
     {
         id: 4,
         name: 'Reimbursement Request 2',
+        type: REQUEST_TYPES.ReimbursementRequest,
         description: 'Reimbursement for conference fees',
         amount: 120,
         currency: 'EUR',
@@ -50,6 +56,7 @@ let db = [
     {
         id: 5,
         name: 'Purchase Request 3',
+        type: REQUEST_TYPES.PurchaseRequest,
         description: 'Request to purchase marketing materials',
         amount: 200,
         currency: 'USD',
@@ -62,6 +69,7 @@ let db = [
     {
         id: 6,
         name: 'Reimbursement Request 3',
+        type: REQUEST_TYPES.ReimbursementRequest,
         description: 'Reimbursement for team building event',
         amount: 90,
         currency: 'EUR',
@@ -74,6 +82,7 @@ let db = [
     {
         id: 7,
         name: 'Purchase Request 4',
+        type: REQUEST_TYPES.PurchaseRequest,
         description: 'Request to purchase software licenses',
         amount: 110,
         currency: 'USD',
@@ -86,6 +95,7 @@ let db = [
     {
         id: 8,
         name: 'Reimbursement Request 4',
+        type: REQUEST_TYPES.ReimbursementRequest,
         description: 'Reimbursement for client entertainment',
         amount: 180,
         currency: 'EUR',
@@ -98,6 +108,7 @@ let db = [
     {
         id: 9,
         name: 'Purchase Request 5',
+        type: REQUEST_TYPES.PurchaseRequest,
         description: 'Request to purchase office furniture',
         amount: 95,
         currency: 'USD',
@@ -110,6 +121,7 @@ let db = [
     {
         id: 10,
         name: 'Reimbursement Request 5',
+        type: REQUEST_TYPES.ReimbursementRequest,
         description: 'Reimbursement for training course',
         amount: 130,
         currency: 'EUR',
@@ -123,4 +135,4 @@ let db = [
 
 let nextId = 11;
 
-module.exports = {db, nextId};
+export default {db, nextId};

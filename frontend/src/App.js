@@ -1,9 +1,9 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
-import Welcome from './Components/Welcome';
-import CreateRequestForm from './Components/CreateRequestForm';
-import ShowRequests from './Components/ShowRequests';
-import Request from "./Components/Request";
+import Welcome from './Components/Welcome/Welcome';
+import CreateRequestForm from './Components/CreateRequestForm/CreateRequestForm';
+import ShowRequests from './Components/ShowRequests/ShowRequests';
+import Request from "./Components/Request/Request";
 
 function App() {
     return (

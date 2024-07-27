@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { HOST_WITH_PORT } from "../consts";
+import { HOST_WITH_PORT } from "../../consts";
 import './CreateRequestForm.css';
+import {REQUEST_TYPES} from "../../Consts/requestTypes"
 
 const CreateRequestForm = () => {
   const [name, setName] = useState('');
@@ -11,6 +12,7 @@ const CreateRequestForm = () => {
   const [employeeName, setEmployeeName] = useState('');
   const [status, setStatus] = useState('Pending');
   const [responseMessage, setResponseMessage] = useState(null);  // State to handle response message
+  const [type, setType] = useState(REQUEST_TYPES.PurchaseRequest);  // State to handle response message
 
   const handleInputChange = (setter) => (e) => {
     setter(e.target.value);
@@ -21,6 +23,7 @@ const CreateRequestForm = () => {
 
     const newRequest = {
       name,
+      type,
       description,
       amount: parseFloat(amount),
       currency,
@@ -39,6 +42,7 @@ const CreateRequestForm = () => {
       setCurrency('USD');
       setEmployeeName('');
       setStatus('Pending');
+      setType(REQUEST_TYPES.PurchaseRequest);
     } catch (error) {
       setResponseMessage({ type: 'error', text: 'Error Creating Request' });
       console.error('Error creating request', error);
@@ -52,6 +56,13 @@ const CreateRequestForm = () => {
         <div className="form-group">
           <label>Name:</label>
           <input type="text" value={name} onChange={handleInputChange(setName)} required />
+        </div>
+        <div className="form-group">
+          <label>Type:</label>
+          <select value={type} onChange={handleInputChange(setType)}>
+            <option value={REQUEST_TYPES.PurchaseRequest}>{REQUEST_TYPES.PurchaseRequest}</option>
+            <option value={REQUEST_TYPES.ReimbursementRequest}>{REQUEST_TYPES.ReimbursementRequest}</option>
+          </select>
         </div>
         <div className="form-group">
           <label>Description:</label>

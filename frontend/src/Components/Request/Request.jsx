@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { HOST_WITH_PORT } from '../consts';
+import { HOST_WITH_PORT } from '../../consts';
 import './Requests.css';
 
 const Request = () => {
@@ -24,6 +24,19 @@ const Request = () => {
     fetchRequest();
   }, [id]);
 
+  const onUpdateStatus = async (selectedStatus) => {
+    const updatedParams = {status: selectedStatus}
+    try {
+      const response = await axios.post(`${HOST_WITH_PORT}/api/requests/${id}`, updatedParams);
+      setResponseMessage({ type: 'success', text: 'Request Updated Successfully!' });
+      console.log('Request Update:', response.data);
+      setRequest(response.data);
+    } catch (error) {
+      setResponseMessage({ type: 'error', text: 'Error updated Request' });
+      console.error('Error updating request', error);
+    }
+  }
+
   if (!request) {
     return <div>Loading...</div>;
   }
@@ -39,6 +52,10 @@ const Request = () => {
         <div>
           <label>Name:</label>
           <input type="text" value={request.name} readOnly />
+        </div>
+        <div>
+          <label>Type:</label>
+          <input type="text" value={request.type} readOnly />
         </div>
         <div>
           <label>Description:</label>
@@ -62,8 +79,8 @@ const Request = () => {
         </div>
       </form>
       <div className="button-group">
-        <button className="approve-button">Approve</button>
-        <button className="decline-button">Decline</button>
+        <button className="approve-button" onClick={() => onUpdateStatus("Approved")}>Approve</button>
+        <button className="decline-button" onClick={() => onUpdateStatus("Declined")}>Decline</button>
       </div>
       {responseMessage && (
         <div className={`snackbar ${responseMessage.type}`}>

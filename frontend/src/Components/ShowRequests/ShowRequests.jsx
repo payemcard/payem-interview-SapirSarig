@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { HOST_WITH_PORT } from '../consts';
+import { HOST_WITH_PORT } from '../../consts';
 import './ShowRequests.css';
-import Filters from './Filters';
+import Filters from '../Filters/Filters';
 
 const ShowRequests = () => {
     const [requests, setRequests] = useState([]);
@@ -15,9 +15,17 @@ const ShowRequests = () => {
     });
     const navigate = useNavigate();
 
+    const serializeFilters = (filters) => {
+        return Object.keys(filters)
+            .filter(key => filters[key] !== '')
+            .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(filters[key])}`)
+            .join('&');
+    };
+
     const fetchRequests = async () => {
         try {
-            const response = await axios.get(`${HOST_WITH_PORT}/api/requests`);
+            const queryString = serializeFilters(filters);
+            const response = await axios.get(`${HOST_WITH_PORT}/api/requests?${queryString}`);
             setRequests(response.data);
             setResponseMessage({ type: 'success', text: 'Requests Fetched Successfully!' });
             setTimeout(() => setResponseMessage(null), 3000);
@@ -35,6 +43,10 @@ const ShowRequests = () => {
         });
     };
 
+    const onApplyFilters = () => {
+        fetchRequests();
+    }
+
     const handleRowClick = (id) => {
         navigate(`/requests/${id}`);
     };
@@ -42,13 +54,14 @@ const ShowRequests = () => {
     return (
         <div className="requests-container">
             <h1>Show Requests</h1>
-            <Filters filters={filters} onFilterChange={handleFilterChange} onApplyFilters={() => { }} />
+            <Filters filters={filters} onFilterChange={handleFilterChange} onApplyFilters={onApplyFilters} />
             <button onClick={fetchRequests} className="fetch-button">Fetch Requests</button>
             <table className="requests-table">
                 <thead>
                     <tr>
                         <th>Request ID</th>
                         <th>Name</th>
+                        <th>Type</th>
                         <th>Description</th>
                         <th>Amount</th>
                         <th>Currency</th>
@@ -65,6 +78,7 @@ const ShowRequests = () => {
                         >
                             <td>{request.id}</td>
                             <td>{request.name}</td>
+                            <td>{request.type}</td>
                             <td>{request.description}</td>
                             <td>{request.amount}</td>
                             <td>{request.currency}</td>
